@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="#FFFFFF">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Your Workout"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="30dp"/>
+
+    <EditText
+        android:id="@+id/etWorkoutName"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:hint="Workout Name (e.g. Pushups)"
+        android:background="@android:drawable/editbox_background"
+        android:paddingLeft="10dp"
+        android:layout_marginBottom="15dp"/>
+
+    <EditText
+        android:id="@+id/etWorkoutValue"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:hint="Repetitions / Distance"
+        android:background="@android:drawable/editbox_background"
+        android:paddingLeft="10dp"
+        android:layout_marginBottom="25dp"/>
+
+    <Button
+        android:id="@+id/btnSaveWorkout"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="SAVE WORKOUT"
+        android:backgroundTint="#2E7D32"/>
+
+</LinearLayout>
