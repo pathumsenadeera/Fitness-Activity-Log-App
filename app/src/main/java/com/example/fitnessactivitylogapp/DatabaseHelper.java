@@ -26,4 +26,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS workouts");
         onCreate(db);
     }
+
+    // Method to insert new user data into database
+    public boolean addUser(String name, String email, String password) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name", name);
+        contentValues.put("email", email);
+        contentValues.put("password", password);
+
+        long result = db.insert("users", null, contentValues);
+        // If result is -1, data insertion failed
+        return result != -1;
+    }
 }
