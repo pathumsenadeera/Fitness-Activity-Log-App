@@ -59,7 +59,18 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    // Placeholder for Database Insertion (Next Step)
+                    // Attempt to insert data into the database
+                    boolean isInserted = db.addUser(name, email, password);
+
+                    if(isInserted) {
+                        Toast.makeText(RegisterActivity.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
+                        // Redirect user to Login screen after successful registration
+                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "Registration Failed! Email might already exist.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
