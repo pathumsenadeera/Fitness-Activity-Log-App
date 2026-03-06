@@ -39,4 +39,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // If result is -1, data insertion failed
         return result != -1;
     }
+
+    // Method to check if email and password match for login
+    public boolean checkUser(String email, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Query the users table for a matching email and password
+        android.database.Cursor cursor = db.rawQuery("SELECT * FROM users WHERE email=? AND password=?", new String[]{email, password});
+
+        boolean exists = cursor.getCount() > 0;
+        cursor.close(); // Always close the cursor to avoid memory leaks
+        return exists;
+    }
 }
+
