@@ -55,12 +55,33 @@ public class LoginActivity extends AppCompatActivity {
                     boolean isValid = db.checkUser(email, password);
                     if(isValid){
                         Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                        // Proceed to next step (Session Management)
+
+                        // Save user email in SharedPreferences for session tracking
+                        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("user_email", email);
+                        editor.apply();
+
+                        // Redirect to Main Activity (Dashboard)
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
                     } else {
                         Toast.makeText(LoginActivity.this, "Invalid Email or Password!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         });
+
+        tvRegisterRedirect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
     }
 }

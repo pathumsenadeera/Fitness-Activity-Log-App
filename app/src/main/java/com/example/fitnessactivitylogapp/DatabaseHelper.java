@@ -50,5 +50,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close(); // Always close the cursor to avoid memory leaks
         return exists;
     }
+
+
 }
 
