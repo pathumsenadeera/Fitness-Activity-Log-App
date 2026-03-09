@@ -40,5 +40,24 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // Logout Button Logic
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Access SharedPreferences and clear user session
+                SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                editor.clear();
+                editor.apply();
+
+                Toast.makeText(MainActivity.this, "Successfully Logged Out!", Toast.LENGTH_SHORT).show();
+
+                // Redirect user back to Login screen
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish(); // Close MainActivity
+            }
+        });
     }
 }
