@@ -1,4 +1,7 @@
 package com.example.fitnessactivitylogapp;
 
-public class AddWorkoutActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class AddWorkoutActivity extends AppCompatActivity {
+
 }
