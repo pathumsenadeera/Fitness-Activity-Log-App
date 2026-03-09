@@ -8,6 +8,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "FitnessTracker.db";
 
+    public static final String TABLE_WORKOUTS = "workouts";
+    public static final String COL_W_ID = "ID";
+    public static final String COL_USER_EMAIL = "user_email";
+    public static final String COL_TYPE = "workout_type";
+    public static final String COL_VALUE = "duration";
+    public static final String COL_DATE = "date";
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
@@ -50,6 +57,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close(); // Always close the cursor to avoid memory leaks
         return exists;
     }
+
+
 
 
 }
