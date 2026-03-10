@@ -50,7 +50,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close(); // Always close the cursor to avoid memory leaks
         return exists;
     }
+    // Workout insert method - Fixed Errors
+    public boolean addWorkout(String userEmail, String type, String value) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
 
+        contentValues.put(COL_USER_EMAIL, userEmail);
+        contentValues.put(COL_TYPE, type);
+        contentValues.put(COL_VALUE, value);
+
+        // Auto generate current date
+        String currentDate = new java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault()).format(new java.util.Date());
+        contentValues.put(COL_DATE, currentDate);
+
+        long result = db.insert(TABLE_WORKOUTS, null, contentValues);
+        return result != -1;
+    }
+
+
+    // 2. Get User Workouts
+    public android.database.Cursor getUserWorkouts(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        // SELECT ID AS _id, type, value, date FROM workouts WHERE user_email = ?
+        return db.rawQuery("SELECT " + COL_W_ID + " AS _id, " + COL_TYPE + ", " + COL_VALUE + ", " + COL_DATE +
+                " FROM " + TABLE_WORKOUTS + " WHERE " + COL_USER_EMAIL + " = ?", new String[]{email});
+    }
+
+    // 3. Delete Workout
+    public boolean deleteWorkout(String id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        int result = db.delete(TABLE_WORKOUTS, COL_W_ID + " = ?", new String[]{id});
+        return result > 0;
+    }
 
 }
 
