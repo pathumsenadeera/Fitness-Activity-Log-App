@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class RegisterActivity extends AppCompatActivity {
 
     // UI Component declarations
-    EditText etFullName, etEmail, etPassword;
+    EditText etFullName, etEmail, etPassword,etConfirmPassword;
     Button btnRegister;
     TextView tvLoginRedirect;
     DatabaseHelper db;
@@ -30,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
         etFullName = findViewById(R.id.etFullName);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
+        etConfirmPassword = findViewById(R.id.etConfirmPassword);
         btnRegister = findViewById(R.id.btnRegister);
         tvLoginRedirect = findViewById(R.id.tvLoginRedirect);
 
@@ -49,11 +50,16 @@ public class RegisterActivity extends AppCompatActivity {
                 String name = etFullName.getText().toString().trim();
                 String email = etEmail.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
+                String confirmPassword = etConfirmPassword.getText().toString().trim();
 
                 //Check if any field is empty
-                if(name.isEmpty() || email.isEmpty() || password.isEmpty()) {
+                if(name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 }
+                else if (!password.equals(confirmPassword)) {
+                    Toast.makeText(RegisterActivity.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
+                }
+                
                 //Check if email format is valid
                 else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     Toast.makeText(RegisterActivity.this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
