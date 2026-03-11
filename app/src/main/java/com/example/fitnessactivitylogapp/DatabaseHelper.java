@@ -57,7 +57,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close(); // Always close the cursor to avoid memory leaks
         return exists;
     }
-    // Workout insert method - Fixed Errors
+    // Workout insert method
     public boolean addWorkout(String userEmail, String type, String value) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();

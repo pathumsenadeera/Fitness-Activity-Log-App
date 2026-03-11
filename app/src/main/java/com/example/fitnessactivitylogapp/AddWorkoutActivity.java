@@ -2,10 +2,10 @@ package com.example.fitnessactivitylogapp;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AddWorkoutActivity extends AppCompatActivity {
@@ -26,12 +26,9 @@ public class AddWorkoutActivity extends AppCompatActivity {
         // Link Java variables with XML IDs
         etType = findViewById(R.id.etWorkoutName);
         etValue = findViewById(R.id.etWorkoutValue);
-        btnSave = findViewById(R.id.btnSaveWorkout);
-    }
-    // Inside onCreate, after Part 1 code
-        btnSave.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
+        btnSave = findViewById(R.id.btnSave);
+
+        btnSave.setOnClickListener(V -> {
             String type = etType.getText().toString().trim();
             String value = etValue.getText().toString().trim();
 
@@ -53,6 +50,7 @@ public class AddWorkoutActivity extends AppCompatActivity {
                     Toast.makeText(AddWorkoutActivity.this, "Failed to save workout. Try again.", Toast.LENGTH_SHORT).show();
                 }
             }
-        }
-    });
+        });
+    }
+
 }

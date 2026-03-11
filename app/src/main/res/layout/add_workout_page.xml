@@ -33,7 +33,7 @@
         android:layout_marginBottom="25dp"/>
 
     <Button
-        android:id="@+id/btnSaveWorkout"
+        android:id="@+id/btnSave"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:text="SAVE WORKOUT"
