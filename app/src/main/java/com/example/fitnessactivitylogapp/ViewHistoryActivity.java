@@ -1,12 +1,17 @@
 package com.example.fitnessactivitylogapp;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ViewHistoryActivity extends AppCompatActivity {
@@ -31,9 +36,39 @@ public class ViewHistoryActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
         SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
         String userEmail = sharedPreferences.getString("user_email", "");
         loadData(userEmail);
+
+
+        lvWorkoutHistory.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                // Here, 'id' is the primary key (ID) from the database because we used "AS _id" in the query
+                String workoutId = String.valueOf(id);
+
+                new AlertDialog.Builder(ViewHistoryActivity.this)
+                        .setTitle("Delete Record")
+                        .setMessage("Are you sure you want to delete this workout?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                boolean isDeleted = db.deleteWorkout(workoutId);
+                                if(isDeleted) {
+                                    Toast.makeText(ViewHistoryActivity.this, "Workout Deleted!", Toast.LENGTH_SHORT).show();
+                                    // Refresh the list
+                                    loadData(userEmail);
+                                }
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+                return true;
+            }
+        });
+
+
 
 
     }
