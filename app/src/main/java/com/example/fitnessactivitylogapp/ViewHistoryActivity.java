@@ -37,7 +37,6 @@ public class ViewHistoryActivity extends AppCompatActivity {
 
 
     }
-
     private void loadData(String email) {
         Cursor cursor = db.getUserWorkouts(email);
 
