@@ -44,10 +44,11 @@ public class ViewHistoryActivity extends AppCompatActivity {
         Cursor cursor = db.getUserWorkouts(email);
 
         String[] from = {DatabaseHelper.COL_TYPE, DatabaseHelper.COL_VALUE};
-        int[] to = {android.R.id.text1, android.R.id.text2};
+        int[] to = {R.id.tvRowType, R.id.tvRowValue};
 
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
-                android.R.layout.simple_list_item_2, cursor, from, to, 0);
+                R.layout.list_row_dark, cursor, from, to, 0);
+
         lvWorkoutHistory.setAdapter(adapter);
     }
 

@@ -16,8 +16,9 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".AddWorkoutActivity" />
         <activity android:name=".ViewHistoryActivity"/>
+        <activity android:name=".LoginActivity"/>
         <activity
-            android:name=".LoginActivity"
+            android:name=".GetStartedActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
