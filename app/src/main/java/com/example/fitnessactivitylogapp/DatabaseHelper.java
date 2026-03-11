@@ -100,10 +100,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_TYPE, type);
         contentValues.put(COL_VALUE, value);
 
-        // ID එකට අදාළ පේළිය පමණක් update කිරීම
+
         int result = db.update(TABLE_WORKOUTS, contentValues, COL_W_ID + " = ?", new String[]{id});
 
-        return result > 0; // update එක සාර්ථක නම් true ලැබෙයි
+        return result > 0;
     }
 
 
