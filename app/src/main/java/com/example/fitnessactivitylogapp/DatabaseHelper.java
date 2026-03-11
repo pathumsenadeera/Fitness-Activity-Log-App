@@ -91,6 +91,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result > 0;
     }
 
+    //update and delete workout
+
+    public boolean updateWorkout(String id, String type, String value) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(COL_TYPE, type);
+        contentValues.put(COL_VALUE, value);
+
+        // ID එකට අදාළ පේළිය පමණක් update කිරීම
+        int result = db.update(TABLE_WORKOUTS, contentValues, COL_W_ID + " = ?", new String[]{id});
+
+        return result > 0; // update එක සාර්ථක නම් true ලැබෙයි
+    }
+
 
 
 }
