@@ -63,8 +63,10 @@ public class RegisterActivity extends AppCompatActivity {
                 //Check if email format is valid
                 else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     Toast.makeText(RegisterActivity.this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else if (!email.endsWith("@gmail.com")) {
+                    Toast.makeText(RegisterActivity.this, "Only Gmail addresses are allowed", Toast.LENGTH_SHORT).show();
+
+                } else {
                     // Attempt to insert data into the database
                     boolean isInserted = db.addUser(name, email, password);
 
