@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#1A1A1A"> <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Update Workout Log"
+    android:textColor="#CCFF00"
+    android:textSize="20sp"
+    android:textStyle="bold"
+    android:layout_marginBottom="20dp"/>
+
+    <EditText
+        android:id="@+id/etUpdateType"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:hint="Workout Type"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#555555"
+        android:paddingStart="16dp"
+        android:background="@drawable/edittext_dark_rounded"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/etUpdateValue"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:hint="Value (e.g. 30 mins)"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#555555"
+        android:paddingStart="16dp"
+        android:background="@drawable/edittext_dark_rounded"/>
+
+</LinearLayout>

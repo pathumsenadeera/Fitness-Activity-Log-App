@@ -3,6 +3,7 @@ package com.example.fitnessactivitylogapp;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -65,41 +66,57 @@ public class ViewHistoryActivity extends AppCompatActivity {
 
     // Logic to update existing workout record
     private void showUpdateDialog(String id) {
+        // 1. Create a Builder
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Update Entry");
 
-        final EditText inputType = new EditText(this);
-        inputType.setHint("Workout Type");
-        final EditText inputValue = new EditText(this);
-        inputValue.setHint("Value");
+        // 2. Inflate our custom neon-themed layout
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_update_workout, null);
+        builder.setView(dialogView);
 
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setPadding(50, 20, 50, 20);
-        layout.addView(inputType);
-        layout.addView(inputValue);
-        builder.setView(layout);
+        // Link the EditTexts from the custom layout
+        final EditText etUpdateType = dialogView.findViewById(R.id.etUpdateType);
+        final EditText etUpdateValue = dialogView.findViewById(R.id.etUpdateValue);
 
-        builder.setPositiveButton("Update", (dialog, which) -> {
-            if (db.updateWorkout(id, inputType.getText().toString(), inputValue.getText().toString())) {
-                Toast.makeText(this, "Updated", Toast.LENGTH_SHORT).show();
-                loadUserHistory();
+        // 3. Setup the Update Button
+        builder.setPositiveButton("Update Now", (dialog, which) -> {
+            String type = etUpdateType.getText().toString().trim();
+            String value = etUpdateValue.getText().toString().trim();
+
+            if (!type.isEmpty() && !value.isEmpty()) {
+                // Update the database using the ID passed to this method
+                boolean isUpdated = db.updateWorkout(id, type, value);
+
+                if (isUpdated) {
+                    Toast.makeText(this, "Workout Updated! 💪", Toast.LENGTH_SHORT).show();
+                    loadUserHistory(); // Refresh the list to show new data
+                } else {
+                    Toast.makeText(this, "Update Failed!", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "Fields cannot be empty!", Toast.LENGTH_SHORT).show();
             }
         });
-        builder.setNegativeButton("Cancel", null);
-        builder.show();
+
+        // 4. Setup the Cancel Button
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+        // 5. Create and Show the Dialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     // Logic to delete a workout record
     private void confirmDelete(String id) {
         new AlertDialog.Builder(this)
-                .setMessage("Delete this log permanently?")
-                .setPositiveButton("Yes", (dialog, which) -> {
+                .setTitle("Delete Record")
+                .setMessage("Are you sure you want to delete this log permanently?")
+                .setPositiveButton("Yes, Delete", (dialog, which) -> {
                     if (db.deleteWorkout(id)) {
-                        Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Record Deleted", Toast.LENGTH_SHORT).show();
                         loadUserHistory();
                     }
                 })
-                .setNegativeButton("No", null).show();
+                .setNegativeButton("No", null)
+                .show();
     }
 }

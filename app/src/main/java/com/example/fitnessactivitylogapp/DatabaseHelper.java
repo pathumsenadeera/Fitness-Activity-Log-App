@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "FitnessTracker.db";
@@ -21,9 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
         db.execSQL("CREATE TABLE users(ID INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT UNIQUE, password TEXT)");
-
         db.execSQL("CREATE TABLE workouts(ID INTEGER PRIMARY KEY AUTOINCREMENT, user_email TEXT, workout_type TEXT, duration TEXT, date TEXT)");
     }
 
@@ -34,13 +34,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    // --- Method to hash the password using SHA-256 for security ---
+    private String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes());
+            StringBuilder hexString = new StringBuilder();
+
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString(); // Returns the encrypted hash
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return password; // Fallback in case of error
+        }
+    }
+
     // Method to insert new user data into database
     public boolean addUser(String name, String email, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", name);
         contentValues.put("email", email);
-        contentValues.put("password", password);
+
+        // Hash the password before saving to the database
+        contentValues.put("password", hashPassword(password));
 
         long result = db.insert("users", null, contentValues);
         // If result is -1, data insertion failed
@@ -50,13 +71,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Method to check if email and password match for login
     public boolean checkUser(String email, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
-        // Query the users table for a matching email and password
-        android.database.Cursor cursor = db.rawQuery("SELECT * FROM users WHERE email=? AND password=?", new String[]{email, password});
+
+        // Hash the input password to compare with the stored encrypted password
+        String hashedInput = hashPassword(password);
+
+        // Query the users table for a matching email and hashed password
+        android.database.Cursor cursor = db.rawQuery("SELECT * FROM users WHERE email=? AND password=?", new String[]{email, hashedInput});
 
         boolean exists = cursor.getCount() > 0;
         cursor.close(); // Always close the cursor to avoid memory leaks
         return exists;
     }
+
     // Workout insert method
     public boolean addWorkout(String userEmail, String type, String value) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -74,7 +100,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-
     // 2. Get User Workouts
     public android.database.Cursor getUserWorkouts(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -86,13 +111,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // 3. Delete Workout
     public boolean deleteWorkout(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-
         int result = db.delete(TABLE_WORKOUTS, COL_W_ID + " = ?", new String[]{id});
         return result > 0;
     }
 
-    //update and delete workout
-
+    // Update workout
     public boolean updateWorkout(String id, String type, String value) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -100,13 +123,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_TYPE, type);
         contentValues.put(COL_VALUE, value);
 
-
         int result = db.update(TABLE_WORKOUTS, contentValues, COL_W_ID + " = ?", new String[]{id});
-
         return result > 0;
     }
-
-
-
 }
-
