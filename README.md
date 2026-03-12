@@ -1,4 +1,4 @@
-# 🏋️‍♂️ FitTrack Companion – Fitness Activity Log App 🔥
+# Fitness Activity Log App 🔥
 
 <p align="center">
   <b>Track Your Progress • Smash Your Goals • Stay Motivated</b>
