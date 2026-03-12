@@ -14,11 +14,18 @@
 ---
 
 ## 🌍 About the Project
-**FitTrack Companion** is a personalized mobile application designed to help users log, monitor, and manage their daily fitness routines. Developed as a university project for Mobile Application Development, this app combines high-performance functionality with a visually stunning **Premium Dark Theme** and neon accents.
-
-Unlike standard fitness apps, FitTrack focuses on simplicity and user privacy, offering a secure local environment to document workout types, durations, and reps. 
+**FitTrack Companion** is a personalized mobile application designed to help users log, monitor, and manage their daily fitness routines.This app combines high-performance functionality with a visually stunning **Premium Dark Theme** and neon accents.
 
 This project demonstrates core Android development concepts, including secure local storage with **SQLite**, full **CRUD operations**, custom UI components, and **user-session management**.
+
+---
+
+## 📸 UI Screenshots
+
+
+| Get Started | Register | Login | Dashboard | Add Workout | View History |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| <img src="GetStart.png" width="150"> | <img src="register.png" width="150"> | <img src="signin.png" width="150"> | <img src="dashboad.png" width="150"> | <img src="Addworkout.png" width="150"> | <img src="history.png" width="150"> |
 
 ---
 
@@ -75,32 +82,29 @@ The application utilizes a robust local database (`FitnessTracker.db`) to ensure
 
 ---
 
-## 👥 Team Members & Contributions (Commit History)
+## 👥 Team Members & Contributions
 
-To ensure a balanced workload and comply with project guidelines, development was divided among three members:
-
-### **Member 01: [ඔයාගේ නම / Student ID]**
+### **Member 01: [ICT/2022/113]**
 - Initial project structure, Manifest configuration, and Repository setup.
 - SQLite Database foundation (`DatabaseHelper`).
 - Authentication system (Registration & Login Logic).
 - Security implementation (**SHA-256 Password Hashing**).
 - Session Management (`SharedPreferences`).
 
-### **Member 02: [දෙවෙනි සාමාජිකයාගේ නම / ID]**
-- Core UI/UX implementation (Premium Dark Theme, Neon Buttons, and Drawables).
+### **Member 02: [ICT/2022/110]**
 - Dashboard (`MainActivity`) UI design and logic (Personalized greetings, Quick actions).
 - Workout entry implementation (`AddWorkoutActivity` and XML).
-- Image overlays and layout scaling constraints.
+- Session Management (`SharedPreferences`).
 
-### **Member 03: [තුන්වෙනි සාමාජිකයාගේ නම / ID]**
+### **Member 03: [ICT/2022/112]**
 - History retrieval system (`ViewHistoryActivity`).
 - Custom ListView implementation (`list_row_dark.xml` and `SimpleCursorAdapter`).
 - Advanced CRUD logic: Custom Dialogs for **Update** and **Delete** functionalities.
-- Final UI polish, code commenting, and Project Documentation (**README.md**).
+- Session Management (`SharedPreferences`).
 
 ---
 
 ## ⚙️ Installation & Setup
 1. **Clone the repository**:
    ```bash
-   git clone [https://github.com/yourusername/FitnessActivityLogApp.git](https://github.com/yourusername/FitnessActivityLogApp.git)
+   git clone [https://github.com/pathumsenadeera/Fitness-Activity-Log-App.git](https://github.com/pathumsenadeera/Fitness-Activity-Log-App.git)
